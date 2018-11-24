@@ -1,14 +1,24 @@
 {
     "env": {
-        "node": true,
+        "browser": true,
         "commonjs": true,
-        "es6": true
+        "es6": true,
+        "node": true
     },
     "extends": ["standard", "eslint:recommended", "prettier", "prettier/standard"],
     "parserOptions": {
-        "sourceType": "module"
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "generators": false,
+            "objectLiteralDuplicateProperties": false
+        }
     },
     "plugins": ["prettier"],
+    "globals": {
+        "$": false
+    },
     "rules": {
         "comma-style": [2, "first"],
         "indent": ["error", 2],
