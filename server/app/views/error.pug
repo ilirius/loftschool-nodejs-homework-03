@@ -1,0 +1,20 @@
+extends _template
+
+block content
+  header.header
+    .container.header__container
+      .header__top
+        a(href="/").title-name Архипов
+          span.title-name__doter .
+        .header__social
+          ul.social
+            each item in social
+              li.social__item
+                a.social__link(href="http://")
+                  i(class=`fab ${item}`)
+
+  .container
+    h1=error
+    section=message
+
+  include ./common/_footer
