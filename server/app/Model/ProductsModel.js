@@ -25,8 +25,18 @@ class ProductsModel {
   /**
    * Получение списка продуктов
    */
-  getProducts() {
-    return this._db.getState() || [];
+  getProductList() {
+    return this._db.get('products').value();
+  }
+
+  addProduct(name, price, photoPath) {
+    this._db.get('products')
+      .push({
+        'src': photoPath,
+        'name': name,
+        'price': price
+      })
+      .write();
   }
 }
 

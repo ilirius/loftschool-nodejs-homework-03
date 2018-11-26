@@ -27,6 +27,7 @@
     "eslit": "^5.0.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "formidable": "^1.2.1",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^4.1.0",
     "gulp-cheerio": "^0.6.3",

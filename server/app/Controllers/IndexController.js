@@ -27,7 +27,7 @@ class IndexController {
 
     response.render('pages/index', {
       msgemail: request.flash('info')[0],
-      products: products.getProducts(),
+      products: products.getProductList(),
       skills: skills.getSkills(),
       title: 'Home page',
     });

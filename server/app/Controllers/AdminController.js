@@ -1,5 +1,9 @@
-const SkillsModel = require('../Model/SkillsModel');
+const formidable = require('formidable');
+
+const clsFileUpLoader = require('../classes/FileUploader');
 const clsSkills = require('../classes/Skills');
+const ProductsModel = require('../Model/ProductsModel');
+const SkillsModel = require('../Model/SkillsModel');
 
 class AdminController {
   constructor(express) {
@@ -20,9 +24,9 @@ class AdminController {
    * @memberof IndexController
    */
   actionIndex(request, response) {
-    if (!request.session.auth) {
-      return response.redirect('/login');
-    }
+    // if (!request.session.auth) {
+    //   return response.redirect('/login');
+    // }
 
     const skillsData = new SkillsModel();
     const skillsList = skillsData.getSkills();
@@ -79,9 +83,47 @@ class AdminController {
    * @memberof IndexController
    */
   // eslint-disable-next-line no-unused-vars
-  actionUpload(request, response) {
-    request.flash('msgfile', 'Данные обновлены');
-    response.redirect('/admin');
+  actionUpload(request, response, next) {
+    let form = new formidable.IncomingForm();
+    form.parse(request, (err, fields, files) => {
+      if (err) {
+        return next(err);
+      }
+
+      let valid = false;
+      let photoPath = '';
+      const FileUpLoader = new clsFileUpLoader(files, 'photo');
+
+      if (!fields.name) {
+        request.flash('msgfile', 'Не указано описание товара!');
+      } else {
+        valid = true;
+      }
+
+      if (!fields.price) {
+        request.flash('msgfile', 'Не указано цена товара!');
+        valid = false;
+      } else {
+        valid = true;
+      }
+
+      if (!FileUpLoader.validate()) {
+        request.flash('msgfile', 'Не загружена картинка!');
+        valid = false;
+      } else if (valid) {
+        photoPath = FileUpLoader.save();
+        valid = true;
+      }
+
+      if (valid) {
+        const products = new ProductsModel();
+        products.addProduct(fields.name, parseInt(fields.price, 10), photoPath);
+        request.flash('msgfile', 'Товар добавлен.');
+      } else {
+        request.flash('msgfile', 'Товар не добавлен.');
+      }
+      response.redirect('/admin');
+    });
   }
 }
 
