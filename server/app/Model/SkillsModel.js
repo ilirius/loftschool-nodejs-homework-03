@@ -31,6 +31,16 @@ class SkillsModel {
   getSkills() {
     return this._db.getState() || [];
   }
+
+  /**
+   * Запись данных в БД
+   *
+   * @param {*} slillList
+   * @memberof SkillsModel
+   */
+  writeSkills(slillList) {
+    this._db.setState(slillList).write();
+  }
 }
 
 module.exports = SkillsModel;
