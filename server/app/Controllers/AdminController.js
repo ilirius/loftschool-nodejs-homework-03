@@ -24,9 +24,9 @@ class AdminController {
    * @memberof IndexController
    */
   actionIndex(request, response) {
-    // if (!request.session.auth) {
-    //   return response.redirect('/login');
-    // }
+    if (!request.session.auth) {
+      return response.redirect('/login');
+    }
 
     const skillsData = new SkillsModel();
     const skillsList = skillsData.getSkills();
