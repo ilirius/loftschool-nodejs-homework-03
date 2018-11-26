@@ -1,4 +1,5 @@
-// const UsersModel = require('../Model/UsersModel');
+const UsersModel = require('../Model/UsersModel');
+const clsUsers = require('../classes/Users');
 
 class LoginController {
   constructor(express) {
@@ -17,7 +18,7 @@ class LoginController {
    * @memberof IndexController
    */
   actionIndex(request, response) {
-    if (!request.session.auth) {
+    if (request.session.auth) {
       return response.redirect('/admin');
     }
 
@@ -35,19 +36,27 @@ class LoginController {
    * @memberof IndexController
    */
   actionAuth(request, response) {
-    if (request.session.auth) {
-      return response.redirect('/admin');
+    let redirectTo = '/login';
+    const {
+      email,
+      password
+    } = request.body;
+
+    if (email && password) {
+      const users = new UsersModel();
+      const usersData = users.getByEmail(email);
+      const Users = new clsUsers(usersData);
+
+      if (usersData.login === void 0 || !Users.validPassword(password)) {
+        request.flash('login', 'Неверный логин или пароль.');
+      } else {
+        request.session.auth = true;
+        redirectTo = '/admin';
+      }
+    } else {
+      request.flash('login', 'Пожалуйста заполните все поля');
     }
-
-    // const users = new UsersModel();
-
-    // const login = {
-    //   email: request.body.email,
-    //   password: request.body.password
-    // };
-
-    request.flash('login', 'привет');
-    response.redirect('/login');
+    response.redirect(redirectTo);
   }
 }
 
