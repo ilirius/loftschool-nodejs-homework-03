@@ -1,6 +1,5 @@
 {
-  "products": [
-    {
+  "products": [{
       "src": "./assets/img/products/Work1.jpg",
       "name": "Вино вдохновение",
       "price": 600
@@ -44,11 +43,6 @@
       "src": "./assets/img/products/Work9.jpg",
       "name": "Вино вдохновение",
       "price": 600
-    },
-    {
-      "src": "/upload/p8j9pSrUJi0.jpg",
-      "name": "9999999",
-      "price": 99999999
     }
   ]
 }
