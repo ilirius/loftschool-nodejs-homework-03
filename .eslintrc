@@ -20,7 +20,7 @@
         "$": false
     },
     "rules": {
-        "comma-style": [2, "first"],
+        "comma-style": [2, "last"],
         "indent": ["error", 2],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
