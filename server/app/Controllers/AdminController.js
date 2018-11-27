@@ -92,7 +92,7 @@ class AdminController {
 
       let valid = false;
       let photoPath = '';
-      const FileUpLoader = new clsFileUpLoader(files, 'photo');
+      const FileUpLoader = new clsFileUpLoader(files.photo);
 
       if (!fields.name) {
         request.flash('msgfile', 'Не указано описание товара!');
