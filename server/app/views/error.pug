@@ -1,7 +1,7 @@
 extends _template
 
 block content
-  header.header
+  header.header(style="min-height: 7vh;")
     .container.header__container
       .header__top
         a(href="/").title-name Архипов
@@ -13,8 +13,9 @@ block content
                 a.social__link(href="http://")
                   i(class=`fab ${item}`)
 
-  .container
-    h1=error
-    section=message
+  .container(style="min-height: 83vh;")
+    h1 Error
+    p= status
+    p= error
 
   include ./common/_footer
